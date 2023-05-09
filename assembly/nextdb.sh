@@ -5,3 +5,4 @@
 
 cd /home/tilapia/xuluohao/dabao/asm/
 /home/tilapia/srcs/NextDenovo/nextDenovo /home/tilapia/xuluohao/dabao/asm/rundb40k.cfg
+
