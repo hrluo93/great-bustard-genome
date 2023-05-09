@@ -4,15 +4,15 @@
 #PBS -l nodes=1:ppn=20
 
 cd /home/tilapia/xuluohao/dabao/
-
+#fastp
 fastp -i /home/tilapia/xuluohao/dabao/female/20220906-HuaMingshengwu/01.rawFq/00.mergeRawFq/HZ3/HZ3_raw_1.fq.gz -I /home/tilapia/xuluohao/dabao/female/20220906-HuaMingshengwu/01.rawFq/00.mergeRawFq/HZ3/HZ3_raw_2.fq.gz -o /home/tilapia/xuluohao/dabao/female/20220906-HuaMingshengwu/01.rawFq/00.mergeRawFq/HZ3/HZ3_clean1.fq.gz -O /home/tilapia/xuluohao/dabao/female/20220906-HuaMingshengwu/01.rawFq/00.mergeRawFq/HZ3/HZ3_clean2.fq.gz -q 20 
-
+#bwa
 bwa index -p chrbwa /home/tilapia/xuluohao/dabao/final.chr.fa
 
 /opt/anaconda3/bin/bwa mem -t 20 chrbwa /home/tilapia/xuluohao/dabao/female/20220906-HuaMingshengwu/01.rawFq/00.mergeRawFq/HZ3/HZ3_clean1.fq.gz /home/tilapia/xuluohao/dabao/female/20220906-HuaMingshengwu/01.rawFq/00.mergeRawFq/HZ3/HZ3_clean2.fq.gz | samtools sort -@ 10 -O bam -o female/dbfe.bam
 
 cd /home/tilapia/xuluohao/dabao/female/
-
+#picard & gatk
 /opt/anaconda3/bin/samtools index -@ 10 dbfe.bam
 java -jar /home/tilapia/srcs/picard.jar AddOrReplaceReadGroups I=dbfe.bam O=dbfe.group.bam RGLB=library1 RGPL=illumina RGPU=unit1 RGSM=sample1
 /opt/anaconda3/bin/samtools index -@ 10 dbfe.group.bam
